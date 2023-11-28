@@ -1,0 +1,9 @@
+gunicorn
+django
+django-environ
+psycopg2-binary
+django-crispy-forms
+crispy-bootstrap4
+whitenoise
+dj_database_url
+Pillow

@@ -1,0 +1,201 @@
+*{
+
+  margin: 0;
+  padding: 0;
+
+}
+
+/* NAVBAR */
+
+.navbar{
+
+  background: white;
+
+}
+
+.navbar .input-group .input-group-text{
+
+  margin-left: 50px;
+
+}
+
+.nav-link h3, .nav-link{
+
+  font-family: "Montserrat", sans-serif;
+  color: #ed152f;
+
+}
+
+.navbar-toggler{
+
+  border: none;
+  outline: none;
+  color: #ed152f;
+
+}
+
+.button{
+
+  background: #ed152f;
+  border: 1px solid #ed152f;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  box-shadow: 0 4px 4px #ccc;
+  transition: .5s;
+
+}
+
+.button:hover{
+
+  transition: .5s;
+  background: white;
+  color: #ed152f;
+
+}
+
+a{
+
+  text-decoration: #ccc;
+
+}
+
+/* Index */
+
+.carousel-item img{
+
+  height: 500px;
+  filter: brightness(50%);
+
+}
+
+.carousel-item{
+
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.carousel-item h2{
+
+  color: #fff;
+  font-weight: bold;
+
+}
+
+.container-app{
+
+  padding-top: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.app{
+
+  width: calc(700px - 5%);
+
+}
+
+.content h1{
+
+  font-weight: bold;
+  color: #ed152f;
+
+}
+
+.content{
+
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.form{
+
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.form .form-control{
+
+  margin-top: 5px;
+  margin-bottom: 10px;
+
+}
+
+.form .button{
+
+  margin-top: 5px;
+  margin-bottom: 10px;
+
+}
+
+.form a{
+
+  color: #ed152f;
+
+}
+
+.restaurants .card{
+
+  border-radius: 8px;
+  border: 1px solid #ed152f;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
+  word-wrap: break-word;
+
+}
+
+.restaurants .card-title{
+
+  color: #ed152f;
+
+}
+
+.post-comentario textarea{
+
+  resize: none;
+  height: 200px;
+
+}
+
+.post-comentario .button{
+
+  margin-top: 10px;
+
+}
+
+.comentario{
+
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+
+}
+
+/* Rodapé */
+
+.footer {
+
+  padding: 40px 0;
+
+}
+
+.footer .copyright {
+
+  font-family: "Montserrat", sans-serif;
+  color: #ed152f;
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+
+}
+
+.footer .copyright a{
+
+  color: #ed152f;
+  text-decoration: underline;
+
+}

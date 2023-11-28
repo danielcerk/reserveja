@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Criar uma conta {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container-app" style="padding-top: 90px;">
+      
+      <div class="app" style="padding: 12px; border: 1px solid #ccc; border-radius: 8px; ">
+        
+        <div class="form">
+
+          <h1>Crie sua conta!</h1>
+
+          <form method="POST">
+
+            {% csrf_token %}
+
+            {{ register_form|crispy }}
+              
+            <button class="button" style="width: 100%; padding: 8px;">Criar</button>
+
+            <label><a href="/login/">Já tem uma conta?</a></label>
+
+          </form>
+          
+        </div>
+        
+      </div>
+
+    </div>
+
+{% endblock %}

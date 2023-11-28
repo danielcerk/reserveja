@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "reservejá/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "reservejá/wsgi.py"
+      }
+    ]
+}

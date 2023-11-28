@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Login {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container-app" style="padding-top: 90px;">
+    	
+    	<div class="app" style="padding: 12px; border: 1px solid #ccc; border-radius: 8px; ">
+    		
+    		<div class="form">
+
+    			<h1>Bem-vindo de volta!</h1>
+
+	    		<form method="POST">
+
+                    {% csrf_token %}
+
+                    {{ login_form|crispy }}
+
+	    			<label><a href="/password_reset">Esqueci minha senha</a></label>
+	    				
+	    			<button class="button" style="width: 100%; padding: 8px;">Login</button>
+
+                    {% if messages %}
+
+                        <div class="message" align="center" style="padding: 20px;">
+
+                            {% for message in messages %}
+                            
+                                <label{% if message.tags %} style="color: #ed152f;" class="{{ message.tags }}"{% endif %}><i class="fas fa-exclamation"></i> {{ message }}</label>
+
+                            {% endfor %}
+                            
+                        </div>
+
+                    {% endif %}
+
+	    			<label><a href="/register">Não tem uma conta?</a></label>
+
+	    		</form>
+    			
+    		</div>
+    		
+    	</div>
+
+    </div>
+
+{% endblock %}
