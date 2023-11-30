@@ -1,65 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-	<title>ReserveJá | {{ aba }} </title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-</head>
-<body>
+{% extends 'base.html' %}
 
-	<nav class="navbar fixed-top navbar-expand-lg">
-      <!-- Container wrapper -->
-      <div class="container">
-        <!-- Navbar brand -->
+{% block title %} {{ restaurante.nome }} {% endblock %}
 
-        <a href="/" class="nav-link"><h3>ReserveJá <i class="fas fa-store"></i></h3></a>
+{% load static %}
 
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtonsExample"aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation" >
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarButtonsExample">
-
-	      <form class="input-group w-auto ms-auto d-sm-flex">
-	        <input autocomplete="on" type="search" class="form-control" name="search" placeholder="Pesquise" style="min-width: 125px; border-radius: 0;"/>
-	        <button class="button"><i class="fas fa-search"></i></button>
-	      </form>
-          
-          <!--input-group-text border-0 d-lg-flex-->
-          <!-- Left links -->
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Explorar</a>
-            </li>
-          </ul>
-          <!-- Left links -->
-          <div class="d-flex align-items-center">
-            <a href="/login"><button type="button" class="button me-2">Login</button></a>
-            <a href="/register"><button type="button" class="button me-3">Crie uma conta</button></a>
-          </div>
-
-        </div>
-        <!-- Collapsible wrapper -->
-      </div>
-      <!-- Container wrapper -->
-    </nav>
+{% block content %}
 
 	<div id="carouselExampleCaptions" class="carousel slide">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img style="height:300px" src="images/imagem3.jpg" class="d-block w-100" alt="...">
+	      <img style="height:300px" src="{{ restaurante.foto.url }}" class="d-block w-100" alt="imagem do restaurante {{ restaurante.nome }}">
 	      <div class="carousel-caption">
-	        <h2>Restaurante feliz</h2>
+	        <h2>{{ restaurante.nome }}</h2>
 	      </div>
 	    </div>
 	</div>
@@ -73,7 +25,7 @@
 				<h1>Descrição:</h1>
 
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					{{ restaurante.descricao }}
 					
 				</p>
 
@@ -85,7 +37,19 @@
 					
 					<h2>Reservas:</h2>
 
-					<p> { UserLouco } realizou uma reserva no { restaurante feliz } no dia <span style="color: #ed152f;">11/09/2024 às 08:00</span></p>
+					{% if reserva %}
+
+						{% for i in reserva %}
+
+							<p> {{ i.user.username }} realizou uma reserva no {{ i.restaurante.nome }} no dia <span style="color: #ed152f;">{{ i.data }} às {{ i.hora }} para {{ i.numero_pessoas }} pessoas </span></p>
+
+						{% endfor %}
+
+					{% else %}
+
+						<p align="center">Nenhuma reserva feita . Seja o primeiro a fazer uma!</p>
+
+					{% endif %}
 
 				</div>
 
@@ -95,29 +59,43 @@
 
 				<div class="post-comentario">
 
-					<textarea class="form-control" placeholder="Comente sobre o restaurante..."></textarea>
+					<form method="POST">
 
-					<button class="button" style="padding: 8px;">Postar</button>
+						{% csrf_token %}
+
+						<textarea class="form-control" placeholder="Comente sobre o restaurante..." name="comentario"></textarea>
+
+						<button class="button" style="padding: 8px;" name="submit" value="postar_comentario">Postar</button>
+
+					</form>
 					
 				</div>
 
 				<hr>
 
-				<div class="comentario">
+				{% if comentario %}
 
-					<h5>UserLouco</h5>
+					{% for i in comentario %}
 
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-					
-				</div>
+						<div class="comentario">
 
-				<div class="comentario">
+							<h5>{{ i.user.username }}</h5>
 
-					<h5>UserLouco</h5>
+							<p>{{ i.texto }}</p>
+							
+						</div>
 
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-					
-				</div>
+					{% endfor %}
+
+				{% else %}
+
+					<div class="not-found" align="center">
+						
+						<h5>Nenhum comentário encontrado . Seja o primeiro a comentar!</h5>
+
+					</div>
+
+				{% endif %}
 				
 			</div>
 
@@ -141,13 +119,22 @@
                           
                     <div class="link-div">
 
-                    	<label>Data</label>
-                    	<input type="date" name="date" class="form-control">
+                    	<form method="POST">
 
-                    	<label>Horário</label>
-                    	<input type="time" name="time" class="form-control">
+                    		{% csrf_token %}
 
-                    	<button class="button" style="width: 100%; padding: 8px; margin-top: 5px;">Reservar</button>
+                    		<label>Data</label>
+	                    	<input type="date" name="date" class="form-control">
+
+	                    	<label>Horário</label>
+	                    	<input type="time" name="time" class="form-control">
+
+	                    	<label>Quantas pessoas?</label>
+	                    	<input type="number" name="number" class="form-control">
+
+	                    	<button class="button" style="width: 100%; padding: 8px; margin-top: 5px;" name="submit" value="reservar">Reservar</button>
+                    		
+                    	</form>
 
                     </div>
 
@@ -159,12 +146,4 @@
 
    	</div>
 
-    <section class="footer">
-    	<p class="copyright"><a href="/">ReserveJá</a> © 2023</p>
-    </section>
-
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-	<script src="script/script.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -31,8 +31,25 @@
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
-          
+
+          {% if user.is_authenticated %}
+
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/restaurante/create">Add restaurante</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/restaurantes">Explorar</a>
+            </li>
+          </ul>
           <!-- Left links -->
+          <div class="d-flex align-items-center">
+            <a href="/logout"><button type="button" class="button me-2">Sair</button></a>
+            <a href="/account"><button type="button" class="button me-3">Sua conta</button></a>
+          </div>
+
+          {% else %}
+
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="/">Explorar</a>
@@ -43,6 +60,8 @@
             <a href="/login/"><button type="button" class="button me-2">Login</button></a>
             <a href="/register"><button type="button" class="button me-3">Crie uma conta</button></a>
           </div>
+
+          {% endif %}
 
         </div>
         <!-- Collapsible wrapper -->

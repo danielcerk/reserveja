@@ -1,52 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <title>ReserveJá | {{ aba }} </title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-</head>
-<body>
+{% extends 'base.html' %}
 
-  <nav class="navbar fixed-top navbar-expand-lg">
-      <!-- Container wrapper -->
-      <div class="container">
-        <!-- Navbar brand -->
+{% block title %} Crie um restaurante {% endblock %}
 
-        <a href="/" class="nav-link"><h3>ReserveJá <i class="fas fa-store"></i></h3></a>
+{% load static %}
 
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtonsExample"aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation" >
-          <i class="fas fa-bars"></i>
-        </button>
+{% load crispy_forms_tags %}
 
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarButtonsExample">
-          
-          <!-- Left links -->
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Explorar</a>
-            </li>
-          </ul>
-          <!-- Left links -->
-          <div class="d-flex align-items-center">
-            <a href="/login"><button type="button" class="button me-2">Login</button></a>
-            <a href="/register"><button type="button" class="button me-3">Crie uma conta</button></a>
-          </div>
-
-        </div>
-        <!-- Collapsible wrapper -->
-      </div>
-      <!-- Container wrapper -->
-    </nav>
+{% block content %}
 
     <div class="container-app" style="padding-top: 90px;">
       
@@ -56,17 +16,11 @@
 
           <h1>Crie seu restaurante</h1>
 
-          <form method="POST" enctype="">
+          <form method="POST" enctype="multipart/form-data">
 
-            <label>Nome:</label>
-            <input type="text" class="form-control">
+            {% csrf_token %}
 
-            <label>Descrição:</label>
-            <textarea class="form-control" style="resize: none; height: 200px;"></textarea>
-
-            <label>Foto do seu restaurante:</label>
-
-            <input type="file" class="form-control">
+            {{ form|crispy }}
               
             <button class="button" style="width: 100%; padding: 8px;">Criar</button>
 
@@ -78,12 +32,4 @@
 
     </div>
 
-    <section class="footer">
-      <p class="copyright"><a href="/">ReserveJá</a> © 2023</p>
-    </section>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  <script src="script/script.js"></script>
-</body>
-</html>
+{% endblock %}
