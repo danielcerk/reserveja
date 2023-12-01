@@ -8,6 +8,71 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.files.storage import default_storage
 from django.conf import settings
 
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+
+from .serializers import *
+
+class RegisterAPIView(APIView):
+
+	permission_classes = [AllowAny]
+
+	def post(self, request):
+
+		serializer = RegisterSerializer(data=request.data)
+
+		if serializer.is_valid():
+
+			username = serializer.validated_data['username']
+			password = serializer.validated_data['password']
+
+			if User.objects.filter(username=username).exists():
+
+				return Response({'erro':'nome de usuário já existe'}, status=status.HTTP_400_BAD_REQUEST)
+
+			else:
+
+				return Response({'sucesso':'Usuário registrado com sucesso'},
+				 status=status.HTTP_201_CREATED)
+
+		else:
+
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginAPIView(APIView):
+
+	permission_classes = [AllowAny]
+
+	def post(self, request):
+
+		serializer = LoginSerializer(data=request.data)
+
+		if serializer.is_valid():
+
+			username = serializer.validated_data['username']
+			password = serializer.validated_data['password']
+
+			user = authenticate(username=username, password=password)
+
+			if user is not None:
+
+				login(request, user)
+				user_serializer = UserSerializer(user)
+
+				return Response({'sucesso': 'Login foi um sucesso'}, status=status.HTTP_200_OK)
+
+			else:
+
+				return Response({'error': 'Nome de usuário e/ou senha incorretos'}, status=status.HTTP_401_UNAUTHORIZED)
+
+		else:
+
+			return Response(serializer.errors,
+				status=status.HTTP_400_BAD_REQUEST)
 
 
 # Login do usuario
@@ -115,3 +180,8 @@ def account(request):
 		return redirect(f'/?search={search}')
 
 	return render(request, 'registration/account.html', {'user': user})
+
+
+
+
+
